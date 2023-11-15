@@ -19,26 +19,30 @@ variable "profile" {
 #   description = "S3 folder path of bucket which stores the zipped lambda artifacts."
 # }
 variable "repository_name" {
+    type        = string
+
   default = "test-terraform-github-deploy-pr-1"
 }
 
 # Define variables
-variable "aws_access_key" {
-  type = string
+# variable "aws_access_key" {
+#   type = string
 
-  default = "AKIA56XSBZIUNL33R6UW"
-}
-variable "aws_secret_key" {
-  type = string
+#   default = "AKIA56XSBZIUNL33R6UW"
+# }
+# variable "aws_secret_key" {
+#   type = string
 
-  default = "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"
-}
+#   default = "w41kbncdn9MVYEfNplGvo8Rv12CUnQx6j5cRa7lA"
+# }
 variable "instance_ami" {
   type    = string
   default = "ami-0694d931cee176e7d" # Amazon Linux 2 AMI, change this based on your region and preferences
 }
 variable "instance_type" {
   default = "t2.micro"
+    type        = string
+
 }
 variable "key_pair_name" {
   type = string
