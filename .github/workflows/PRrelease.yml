@@ -48,7 +48,7 @@ jobs:
       # - name: 'Package and push to S3'
       #   uses: ./.github/actions/package
       #   with:
-      #     s3-location: s3://serverless-deployments-alamy-eu-west-1-development/bundles/video-thumbnail-preview-generator/pr-${{ github.event.pull_request.number }}/${{ github.sha }}.zip
+      #     s3-location: s3://serverless-deployments-alamy-eu-west-1-development/bundles/test-terraform-github-deploy/pr-${{ github.event.pull_request.number }}/${{ github.sha }}.zip
 
       - name: 'Deploy the stack'
         uses: ./.github/actions/terraform
@@ -80,7 +80,7 @@ jobs:
   #     - name: Run Tests
   #       run: npm run test:int:ci
   #       env:
-  #         LAMBDA_ARN: video-thumbnail-preview-generator-pr-${{ github.event.pull_request.number }}
+  #         LAMBDA_ARN: test-terraform-github-deploy-pr-${{ github.event.pull_request.number }}
   #         TEST_ENV: development
 
   #     - name: Publish test report
