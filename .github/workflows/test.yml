@@ -1,8 +1,8 @@
 name: Test
 on: [push]
 
-env:
-  GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
+# env:
+#   GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
 
 jobs:
   test:
