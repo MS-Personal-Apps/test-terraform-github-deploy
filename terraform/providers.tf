@@ -18,9 +18,9 @@ provider "aws" {
     tags = {
       Service = "Video"
       # Squad_name      = "Philotimo"
-      # Repository_name = "video-adapter"
-      Created_by  = "terraform"
-      Environment = title(terraform.workspace)
+      Repository_name = var.repository_name
+      Created_by      = "terraform"
+      Environment     = title(terraform.workspace)
     }
   }
 }

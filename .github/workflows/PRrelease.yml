@@ -45,10 +45,10 @@ jobs:
           aws-region: eu-west-1
           role-to-assume: arn:aws:iam::959359076904:role/alamydev
 
-      - name: 'Package and push to S3'
-        uses: ./.github/actions/package
-        with:
-          s3-location: s3://serverless-deployments-alamy-eu-west-1-localdev/bundles/test-terraform-github-deploy/pr-${{ github.event.pull_request.number }}/${{ github.sha }}.zip
+      # - name: 'Package and push to S3'
+      #   uses: ./.github/actions/package
+      #   with:
+      #     s3-location: s3://serverless-deployments-alamy-eu-west-1-localdev/bundles/test-terraform-github-deploy/pr-${{ github.event.pull_request.number }}/${{ github.sha }}.zip
 
       - name: 'Deploy the stack'
         uses: ./.github/actions/terraform
