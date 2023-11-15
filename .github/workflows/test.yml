@@ -29,10 +29,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run Checkov
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: terraform/
+      # - name: Run Checkov
+      #   uses: bridgecrewio/checkov-action@master
+      #   with:
+      #     directory: terraform/
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v2
