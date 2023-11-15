@@ -4,7 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf .build .cache .eslintcache .serverless coverage",
+    "dev": "sls offline start --stage local",
+    "invoke": "sls invoke local -f video-thumbnail-updater -p test/fixtures/sqs-event.json",
+    "fix": "npm run fix:ts && npm run fix:misc",
+    "format": "prettier --write \"**/*.{ts,js,json,md,yml}\"",
+    "lint": "npm run lint:ts && npm run lint:package && npm run lint:pretty",
+    "lint:package": "npmPkgJsonLint .",
+    "lint:pretty": "prettier --check .",
+    "lint:ts": "eslint . --cache --fix --ext .ts,.tsx",
+    "prepare": "husky install",
+    "semantic-release": "semantic-release",
+    "start": "sls offline start",
+    "test": "jest --detectOpenHandles --coverage --testPathIgnorePatterns=test/",
+    "test:int": "jest --config ./test/jest.config.js",
+    "test:int:ci": "jest --config ./test/jest.config.js --ci"
   },
   "repository": {
     "type": "git",
