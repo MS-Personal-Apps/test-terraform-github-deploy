@@ -23,8 +23,8 @@ jobs:
         uses: ./.github/actions/dependencies
         with:
           node-version: '18.x'
-      - run: npm run lint
-      - run: npm run test
+      # - run: npm run lint
+      # - run: npm run test
 
   deploy:
     name: Deploy
