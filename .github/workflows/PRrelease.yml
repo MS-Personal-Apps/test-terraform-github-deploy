@@ -40,7 +40,7 @@ jobs:
           node-version: '18.x'
 
       - name: 'Assume AWS role'
-        uses: aws-actions/configure-aws-credentials@v1
+        # uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: eu-west-1
           role-to-assume: arn:aws:iam::959359076904:role/alamydev
