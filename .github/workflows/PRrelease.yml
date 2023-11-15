@@ -13,7 +13,7 @@ jobs:
   unit-test:
     name: Unit Test
     # https://github.com/actions/runner/issues/774
-    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    # if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
     timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
 
