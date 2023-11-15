@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: 'Install dependencies'
-        uses: alamy-ops/github-actions/actions/install-node-dependencies@main
+        uses: ./.github/actions/package/action-test
         with:
           node-version: '18.x'
       - run: npm run lint

@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: 'Install dependencies'
-        uses: alamy-ops/github-actions/actions/install-node-dependencies@main
+        uses: ./.github/actions/package/action-test
         with:
           node-version: '18.x'
       - run: npm run lint
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: 'Install dependencies'
-        uses: alamy-ops/github-actions/actions/install-node-dependencies@main
+        uses: ./.github/actions/package/action-test
         with:
           node-version: '18.x'
 
@@ -43,12 +43,12 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: eu-west-1
-          role-to-assume: arn:aws:iam::${{ secrets.DEV_ACCOUNT_ID }}:role/${{ secrets.AWS_DEPLOY_ROLE }}
+          role-to-assume: arn:aws:iam::959359076904:role/alamydev
 
-      # - name: 'Package and push to S3'
-      #   uses: ./.github/actions/package
-      #   with:
-      #     s3-location: s3://serverless-deployments-alamy-eu-west-1-development/bundles/test-terraform-github-deploy/pr-${{ github.event.pull_request.number }}/${{ github.sha }}.zip
+      - name: 'Package and push to S3'
+        uses: ./.github/actions/package
+        with:
+          s3-location: s3://serverless-deployments-alamy-eu-west-1-localdev/bundles/test-terraform-github-deploy/pr-${{ github.event.pull_request.number }}/${{ github.sha }}.zip
 
       - name: 'Deploy the stack'
         uses: ./.github/actions/terraform
