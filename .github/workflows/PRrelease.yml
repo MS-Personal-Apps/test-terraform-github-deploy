@@ -42,8 +42,8 @@ jobs:
       - name: 'Assume AWS role'
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: AKIA56XSBZIUPBZHSOSL
-          aws-secret-access-key: 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
+          aws-access-key-id: AKIA56XSBZIUNL33R6UW
+          aws-secret-access-key: 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
           aws-region: eu-west-1
 
           # role-to-assume: arn:aws:iam::959359076904:role/TerraformRole
