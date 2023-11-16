@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - main
-env:
-  GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
+# env:
+#   GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
 
 permissions:
   id-token: write
@@ -22,8 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: 'Install dependencies'
-        uses: alamy-ops/github-actions/actions/install-node-dependencies@main
-        with:
+      uses: ./.github/actions/dependencies
+      with:
           node-version: '18.x'
       - run: npm run lint
       - run: npm run test
@@ -42,7 +42,7 @@ jobs:
         with:
           persist-credentials: false
       - name: 'Install dependencies'
-        uses: alamy-ops/github-actions/actions/install-node-dependencies@main
+      uses: ./.github/actions/dependencies
         with:
           node-version: '18.x'
       - name: 'Semantic Release'
@@ -75,7 +75,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: 'Install dependencies'
-        uses: alamy-ops/github-actions/actions/install-node-dependencies@main
+      uses: ./.github/actions/dependencies
         with:
           node-version: '18.x'
       - name: 'Assume AWS role'
