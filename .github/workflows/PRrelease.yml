@@ -18,7 +18,7 @@ jobs:
     # timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: 'Install dependencies'
         uses: ./.github/actions/dependencies
         with:
@@ -42,8 +42,11 @@ jobs:
       - name: 'Assume AWS role'
         uses: aws-actions/configure-aws-credentials@v1
         with:
+          aws-access-key-id: AKIA56XSBZIUPBZHSOSL
+          aws-secret-access-key: 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
           aws-region: eu-west-1
-          role-to-assume: arn:aws:iam::959359076904:role/TerraformRole
+
+          # role-to-assume: arn:aws:iam::959359076904:role/TerraformRole
 
       # - name: 'Package and push to S3'
       #   uses: ./.github/actions/package
