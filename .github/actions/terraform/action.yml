@@ -48,7 +48,7 @@ runs:
 
     - name: 'Terraform apply'
       if: ${{ inputs.action == 'apply' }}
-      run: terraform apply --var-file=./workspaces/${ENVIRONMENT}.tfvars --var="profile="' --auto-approve
+      run: terraform apply --var-file=./workspaces/${ENVIRONMENT}.tfvars --var="profile=" --auto-approve
       shell: bash
       working-directory: ${{ inputs.working-directory }}
 
