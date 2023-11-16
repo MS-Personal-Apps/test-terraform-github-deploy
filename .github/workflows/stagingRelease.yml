@@ -181,26 +181,26 @@ jobs:
   #         path: reports/junit-int.xml
   #         reporter: jest-junit
 
-  update-stack:
-    name: Update the version in the stack repo
-    runs-on: ubuntu-latest
-    timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
-    needs: [semantic-release, deploy-development, deploy-staging]
+  # update-stack:
+  #   name: Update the version in the stack repo
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
+  #   needs: [semantic-release, deploy-development, deploy-staging]
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.SEMVER_TOKEN }}
-          ref: main
-      - name: 'Configure git'
-        run: |
-          git config --global user.email "59701451+alamy-cicd@users.noreply.github.com"
-          git config --global user.name "alamy-cicd"
-      - name: 'Update the workflow files'
-        run: |
-          sed -i '/lambda_version/s/".*"/"${{ needs.semantic-release.outputs.version }}"/' terraform/workspaces/development.tfvars
-          sed -i '/lambda_version/s/".*"/"${{ needs.semantic-release.outputs.version }}"/' terraform/workspaces/staging.tfvars
-      - name: 'Commit'
-        run: 'git commit -am "chore: update pre-prod lambda version to ${{ needs.semantic-release.outputs.version }} [skip ci]"'
-      - name: 'Push'
-        run: git push
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         token: ${{ secrets.SEMVER_TOKEN }}
+  #         ref: main
+  #     - name: 'Configure git'
+  #       run: |
+  #         git config --global user.email "59701451+alamy-cicd@users.noreply.github.com"
+  #         git config --global user.name "alamy-cicd"
+  #     - name: 'Update the workflow files'
+  #       run: |
+  #         sed -i '/lambda_version/s/".*"/"${{ needs.semantic-release.outputs.version }}"/' terraform/workspaces/development.tfvars
+  #         sed -i '/lambda_version/s/".*"/"${{ needs.semantic-release.outputs.version }}"/' terraform/workspaces/staging.tfvars
+  #     - name: 'Commit'
+  #       run: 'git commit -am "chore: update pre-prod lambda version to ${{ needs.semantic-release.outputs.version }} [skip ci]"'
+  #     - name: 'Push'
+  #       run: git push

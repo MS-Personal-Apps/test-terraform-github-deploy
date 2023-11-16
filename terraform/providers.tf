@@ -16,9 +16,7 @@ provider "aws" {
   region  = var.region
   default_tags {
     tags = {
-      Service = "Video"
-      # Squad_name      = "Philotimo"
-      Repository_name = var.repository_name
+      Repository_name = "test-terraform-github-deploy"
       Created_by      = "terraform"
       Environment     = title(terraform.workspace)
     }
