@@ -1,5 +1,5 @@
 # AWS Common
-profile = "personaldev"
+profile = "personallocal"
 region  = "eu-west-1"
 
 
