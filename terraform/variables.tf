@@ -11,7 +11,7 @@ variable "profile" {
 
 variable "instance_ami" {
   type    = string
-  default = "ami-0694d931cee176e7d" # Amazon Linux 2 AMI, change this based on your region and preferences
+  default = "ami-0694d931cee176e7d"
 }
 variable "instance_type" {
   default = "t2.micro"
@@ -20,5 +20,5 @@ variable "instance_type" {
 }
 variable "key_pair_name" {
   type    = string
-  default = "test-terraform-github-deploy" # Change this to your existing key pair name
+  default = "test-terraform-github-deploy"
 }

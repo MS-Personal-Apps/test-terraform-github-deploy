@@ -3,8 +3,8 @@ resource "aws_instance" "example_instance" {
   ami           = var.instance_ami
   instance_type = var.instance_type
   key_name      = var.key_pair_name
-  ebs_optimized = true
-  user_data     = <<-EOF
+  # ebs_optimized = true
+  user_data = <<-EOF
               #!/bin/bash
               sudo yum update -y
               sudo yum install -y nginx
