@@ -1,5 +1,5 @@
 # AWS Common
-profile = "alamydev"
+profile = "personaldev"
 region  = "eu-west-1"
 
 

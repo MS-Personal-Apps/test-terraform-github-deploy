@@ -1,3 +1,3 @@
 # AWS Common
-profile = "alamyproduction"
+profile = "personalproduction"
 region  = "eu-west-1"

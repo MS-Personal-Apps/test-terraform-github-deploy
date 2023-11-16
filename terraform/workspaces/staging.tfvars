@@ -1,3 +1,3 @@
 # AWS Common
-profile = "alamystaging"
+profile = "personalstaging"
 region  = "eu-west-1"

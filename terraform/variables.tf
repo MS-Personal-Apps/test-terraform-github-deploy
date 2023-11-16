@@ -5,7 +5,7 @@ variable "region" {
 }
 variable "profile" {
   type        = string
-  default     = "alamydev"
+  default     = "personaldev"
   description = "AWS CLI profile that Terraform should use when interacting with AWS resources."
 }
 
