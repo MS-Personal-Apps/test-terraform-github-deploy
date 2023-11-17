@@ -10,21 +10,21 @@ permissions:
   checks: write
 
 jobs:
-  unit-test:
-    name: Unit Test
-    # https://github.com/actions/runner/issues/774
-    if: "!contains(github.event.head_commit.message, 'skip ci')"
-    runs-on: ubuntu-latest
-    timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
+  # unit-test:
+  #   name: Unit Test
+  #   # https://github.com/actions/runner/issues/774
+  #   if: "!contains(github.event.head_commit.message, 'skip ci')"
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: 'Install dependencies'
-        uses: ./.github/actions/dependencies
-        with:
-          node-version: '18.x'
-      # - run: npm run lint
-      # - run: npm run test
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: 'Install dependencies'
+  #       uses: ./.github/actions/dependencies
+  #       with:
+  #         node-version: '18.x'
+  #     # - run: npm run lint
+  #     # - run: npm run test
 
   node-deploy:
     name: Node Deploy

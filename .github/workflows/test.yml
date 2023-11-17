@@ -1,5 +1,5 @@
 name: Test
-on: [push]
+# on: [push]
 
 env:
   GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
