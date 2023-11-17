@@ -39,6 +39,12 @@ jobs:
         with:
           node-version: '18.x'
 
+      - name: Print AWS Secrets
+        run: |
+          echo "AWS_ACCESS_KEY_ID: ${{ secrets.DEV_ACCOUNT_ID }}"
+          echo "AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          echo "AWS_REGION: ${{ secrets.AWS_REGION }}"
+
       - name: 'Assume AWS role'
         uses: aws-actions/configure-aws-credentials@v1
         with:
