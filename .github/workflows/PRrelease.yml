@@ -41,31 +41,31 @@ jobs:
       - name: Create App Directory on EC2
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: '63.32.98.99'
           username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: 'ss'
           script: |
             mkdir -p /home/ubuntu/app
             
-      - name: Deploy to EC2
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "."  # Change this if your application files are in a different directory
-          target: "/home/ubuntu/app"  # Change this to the destination directory on your EC2 instance
-          overwrite: true
+      # - name: Deploy to EC2
+      #   uses: appleboy/scp-action@master
+      #   with:
+      #     host: ${{ secrets.EC2_HOST }}
+      #     username: ubuntu
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     source: "."  # Change this if your application files are in a different directory
+      #     target: "/home/ubuntu/app"  # Change this to the destination directory on your EC2 instance
+      #     overwrite: true
 
-      - name: SSH into EC2 and Restart Application
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/ubuntu/app
-            pm2 restart index.js 
+      # - name: SSH into EC2 and Restart Application
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.EC2_HOST }}
+      #     username: ubuntu
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd /home/ubuntu/app
+      #       pm2 restart index.js 
 
   # int-test:
   #   name: Test Deployed Lambda
