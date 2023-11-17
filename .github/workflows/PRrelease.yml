@@ -57,6 +57,7 @@ jobs:
   deploy:
     name: Node Deploy
     runs-on: ubuntu-latest
+    timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
 
     steps:
       - uses: actions/checkout@v3
