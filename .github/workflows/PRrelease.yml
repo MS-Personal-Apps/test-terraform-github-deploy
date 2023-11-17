@@ -71,7 +71,7 @@ jobs:
         with:
           host: '63.32.98.99'
           username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: 'ss'
           script: |
             mkdir -p /home/ubuntu/app
             
