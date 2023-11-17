@@ -55,8 +55,8 @@ jobs:
           npx semantic-release
           echo "version=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
 
-  push-artefact:
-    strategy:
+  # push-artefact:
+  #   strategy:
       # matrix:
       #   include:
       #     - environment: development
