@@ -1,0 +1,40 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: docker/setup-docker@v2
+
+      - name: Build Docker Image
+        run: docker build -t your-image-name .
+
+      - name: Authenticate with AWS ECR (Amazon ECR)
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry: your-ecr-registry # Replace with your ECR registry URL
+
+      - name: Push Docker Image to ECR
+        run: |
+          docker tag your-image-name:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/your-repo-name:latest
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/your-repo-name:latest
+
+      - name: SSH into EC2 and Pull Latest Image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            docker-compose -f /path/to/your/docker-compose.yml pull your-image-name
+            docker-compose -f /path/to/your/docker-compose.yml up -d
