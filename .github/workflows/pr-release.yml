@@ -29,7 +29,7 @@ jobs:
       - name: 'Deploy the stack'
         uses: ./.github/actions/terraform
         with:
-          workspace: pr-1
+          workspace: pr-${{ github.event.pull_request.number }}
           action: apply
           lambda-version: ${{ github.sha }}
           working-directory: ./terraform
