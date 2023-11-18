@@ -1,6 +1,9 @@
 name: Test
-# on: [push]
-
+on:
+  push:
+    branches:
+      - main
+      
 env:
   GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
 
