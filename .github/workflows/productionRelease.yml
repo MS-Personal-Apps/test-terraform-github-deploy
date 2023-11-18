@@ -7,8 +7,8 @@ on:
         required: true
         type: string
 
-env:
-  GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
+# env:
+#   GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
 
 permissions:
   id-token: write
@@ -36,31 +36,31 @@ jobs:
           lambda-version: ${{ inputs.version }}
           working-directory: ./terraform
 
-  update-stack:
-    name: Update the version in the stack repo
-    runs-on: ubuntu-latest
-    timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
-    needs: [deploy]
+  # update-stack:
+  #   name: Update the version in the stack repo
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
+  #   needs: [deploy]
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.SEMVER_TOKEN }}
-      - name: 'Configure git'
-        run: |
-          git config --global user.email "59701451+alamy-cicd@users.noreply.github.com"
-          git config --global user.name "alamy-cicd"
-      - name: 'Update the workflow files'
-        run: |
-          sed -i '/lambda_version/s/".*"/"${{ inputs.version }}"/' terraform/workspaces/production.tfvars
-      - name: 'Commit'
-        run: 'git commit -am "chore: update lambda version to ${{ inputs.version }} [skip ci]"'
-      - name: 'Push'
-        run: git push
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         token: ${{ secrets.SEMVER_TOKEN }}
+  #     - name: 'Configure git'
+  #       run: |
+  #         git config --global user.email "59701451+alamy-cicd@users.noreply.github.com"
+  #         git config --global user.name "alamy-cicd"
+  #     - name: 'Update the workflow files'
+  #       run: |
+  #         sed -i '/lambda_version/s/".*"/"${{ inputs.version }}"/' terraform/workspaces/production.tfvars
+  #     - name: 'Commit'
+  #       run: 'git commit -am "chore: update lambda version to ${{ inputs.version }} [skip ci]"'
+  #     - name: 'Push'
+  #       run: git push
 
   notify:
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
+    # timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
     if: always()
     needs: deploy
     steps:
