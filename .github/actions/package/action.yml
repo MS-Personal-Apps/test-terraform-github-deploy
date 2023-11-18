@@ -37,15 +37,15 @@ runs:
         target: "/home/ubuntu/app"  # Change this to the destination directory on your EC2 instance
         overwrite: true
 
-    - name: SSH into EC2 and Restart Application
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ inputs.EC2_HOST }}
-        username: ubuntu
-        key: ${{ inputs.SSH_PRIVATE_KEY }}
-        script: |
-          cd /home/ubuntu/app
-          pm2 restart index.js 
+    # - name: SSH into EC2 and Restart Application
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ inputs.EC2_HOST }}
+    #     username: ubuntu
+    #     key: ${{ inputs.SSH_PRIVATE_KEY }}
+    #     script: |
+    #       cd /home/ubuntu/app
+    #       pm2 restart index.js 
 
 
  
