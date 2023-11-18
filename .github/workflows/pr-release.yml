@@ -1,0 +1,28 @@
+name: PR Release
+on: [pull_request]
+
+
+env:
+  GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
+
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+
+jobs:
+  node-deploy:
+    name: Node Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: 'Deploy the stack'
+        uses: ./.github/actions/package
+        with:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+
+ 
