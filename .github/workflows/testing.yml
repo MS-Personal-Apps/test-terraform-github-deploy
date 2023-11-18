@@ -1,0 +1,25 @@
+name: Pull Request CI
+
+on:
+  pull_request:
+    branches:
+      - main  # Adjust this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install  # Adjust this to your package manager and command
+
+    - name: Run tests
+      run: npm test  # Adjust this to your test command
