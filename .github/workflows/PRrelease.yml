@@ -1,87 +1,25 @@
-name: PR Release
+name: Pull Request CI
+
 on:
   pull_request:
-
-# env:
-#   GH_PACKAGE_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
-
-permissions:
-  id-token: write
-  contents: read
-  checks: write
+    branches:
+      - main  # Adjust this to your main branch name
 
 jobs:
-  terraform-deploy:
-    name: AWS-Services Deploy
-    runs-on: ubuntu-latest
-    timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Assume AWS role
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
 
-      - name: Deploy the stack
-        uses: ./.github/actions/terraform
-        with:
-          workspace: pr-1
-          action: apply
-          lambda-version: ${{ github.sha }}
-          working-directory: ./terraform
+    - name: Install dependencies
+      run: npm install  # Adjust this to your package manager and command
 
-  node-deploy:
-    name: Node Deploy
-    runs-on: ubuntu-latest
-    timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install dependencies
-        uses: ./.github/actions/dependencies
-        with:
-          node-version: '18.x'
-
-      - name: Create App Directory on EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            mkdir -p /home/ubuntu/app
-            chown -R ubuntu:ubuntu /home/ubuntu/app
-            chmod -R 755 /home/ubuntu/app
-            
-      - name: Deploy to EC2
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "."  # Change this if your application files are in a different directory
-          target: "/home/ubuntu/app"  # Change this to the destination directory on your EC2 instance
-          overwrite: true
-
-      - name: SSH into EC2 and Restart Application
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/ubuntu/app
-            pm2 restart index.js 
-
-# Uncommented sections for unit-test and int-test
-# ...
-
-# Commented-out sections
-# ...
+    - name: Run tests
+      run: npm test  # Adjust this to your test command
