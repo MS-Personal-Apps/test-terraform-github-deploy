@@ -34,7 +34,7 @@ jobs:
     timeout-minutes: ${{ fromJSON(vars.WORKFLOW_TIMEOUT_IN_MINUTES) }}
 
     steps:
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       # - name: 'Install dependencies'
       #   uses: ./.github/actions/dependencies
       #   with:
