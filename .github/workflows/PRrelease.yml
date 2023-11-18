@@ -75,6 +75,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             mkdir -p /home/ubuntu/app
+            chown -R ubuntu:ubuntu /home/ubuntu/app
+            chmod -R 755 /home/ubuntu/app
             
       - name: Deploy to EC2
         uses: appleboy/scp-action@master
