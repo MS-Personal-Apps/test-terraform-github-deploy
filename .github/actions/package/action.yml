@@ -4,7 +4,7 @@ description: 'Packages the lambda and pushes the zip to S3'
 inputs:
   package-output:
     required: true
-    default: '.serverless/test-terraform-github-deploy.zip'
+    default: '.serverless/video-thumbnail-preview-generator.zip'
   s3-location:
     required: true
 

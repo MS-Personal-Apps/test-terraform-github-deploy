@@ -1,5 +1,6 @@
 # AWS Common
-profile = "personaldev"
-region  = "eu-west-1"
+profile   = "alamydev"
+region    = "eu-west-1"
+s3_bucket = "serverless-deployments-alamy-eu-west-1-development"
 
 
