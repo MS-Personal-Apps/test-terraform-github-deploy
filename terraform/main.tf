@@ -1,34 +1,73 @@
-# AWS instance resource
-resource "aws_instance" "example_instance" {
-  ami           = var.instance_ami
+
+# DATA
+# data "aws_ami" "aws_ubuntu" {
+#   most_recent = true
+#   owners      = ["amazon"]
+
+#   filter {
+#     name   = "name"
+#     values = ["amzn-ami-hvm*"]
+#   }
+
+#   filter {
+#     name   = "root-device-type"
+#     values = ["ebs"]
+#   }
+
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+# }
+
+
+# RESOURCES
+# Ami
+
+resource "aws_instance" "aws_ubuntu" {
   instance_type = var.instance_type
+  ami           = var.instance_ami
   key_name      = var.key_pair_name
+  user_data     = file("configuration.tpl")
+}
 
-  user_data = <<-EOF
-              #!/bin/bash
-              
-              # Update the system
-              sudo yum update -y
-              
-              # Install and configure Nginx
-              sudo yum install -y nginx
-              sudo systemctl start nginx
-              sudo systemctl enable nginx
 
-              # Install and start MySQL
-              sudo amazon-linux-extras install -y mysql8
-              sudo systemctl start mysqld
-              sudo systemctl enable mysqld
+# Default VPC
+resource "aws_default_vpc" "default" {
 
-              # Install PHPMyAdmin
-              sudo amazon-linux-extras install -y epel
-              sudo yum install -y phpMyAdmin
+}
 
-              # Install Node.js and PM2
-              sudo yum install -y nodejs
-              sudo npm install -g pm2
+# Security group
+resource "aws_security_group" "demo_sg" {
+  name        = "demo_sg"
+  description = "allow ssh on 22 & http on port 80"
+  vpc_id      = aws_default_vpc.default.id
 
-              # Start services
-              sudo systemctl restart nginx
-              EOF
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+
+# OUTPUT
+output "aws_instance_public_dns" {
+  value = aws_instance.aws_ubuntu.public_dns
 }

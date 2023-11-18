@@ -1,5 +1,5 @@
 name: PR Release
-on: [push]
+on: [pull_request]
 
 
 env:
@@ -35,11 +35,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      # - name: 'Install dependencies'
-      #   uses: ./.github/actions/dependencies
-      #   with:
-      #     node-version: '18.x'
-
       - name: 'Assume AWS role'
         uses: aws-actions/configure-aws-credentials@v1
         with:
